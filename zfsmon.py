@@ -31,8 +31,9 @@ class ZFSMon:
 def main():
     Z = ZFSMon()
     Alerts = Notifications()
+    msg = ""
     for pool in Z.pools:
-        msg = "Pool: {}".format(pool)
+        msg = msg + "{}".format(pool)
         if (Z.getPoolStatus(pool)):
             msg = msg + " " + "GOOD"
             print ("{}: GOOD".format(pool))
@@ -40,7 +41,8 @@ def main():
             msg = msg + " " + "FAILED -  Please check the pool"
             print ("{}: FAIL".format(pool))
         msg = msg + "\n"
-        Alerts.sendNotification(msg)
+    print ("message sending to alerts:\n {}".format(msg))
+    Alerts.sendNotification(msg)
 
 if __name__ == "__main__":
     main()
